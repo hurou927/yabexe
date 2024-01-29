@@ -59,7 +59,7 @@ export const ordByApp: Ord<YabaiQueryWindowType> = contramap((
 ) => w.app)(S.Ord);
 
 export const isOpen = (w: YabaiQueryWindowType) => {
-  return w["is-visible"] && !w["is-minimized"] && !w["is-hidden"];
+  return !w["is-minimized"] && !w["is-hidden"];
 };
 
 export const isFocused = (w: YabaiQueryWindowType) => {
