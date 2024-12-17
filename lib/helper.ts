@@ -1,4 +1,9 @@
-import {$, concatAll, contramap, getMonoid, N, Ord, S, Option as O } from "../deps.ts";
+import { concatAll } from "fp-ts/Monoid";
+import { contramap, getMonoid, Ord } from "fp-ts/Ord";
+import * as O from "fp-ts/lib/Option";
+import * as N from "fp-ts/number";
+import * as S from "fp-ts/string";
+
 
 export interface YabaiQueryWindowFrameType {
   readonly x: number;
@@ -69,3 +74,4 @@ export const isFocused = (w: YabaiQueryWindowType) => {
 const getForcusWindow = (windows: YabaiQueryWindowType[]) => {
   return O.fromNullable(windows.find(isFocused));
 }
+
