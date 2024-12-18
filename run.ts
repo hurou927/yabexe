@@ -45,11 +45,7 @@ debuglog(`args: ${JSON.stringify(args)}`);
 const windows: YabaiQueryWindowType[] = await $`yabai -m query --windows`
   .json();
 const focusedWindow: YabaiQueryWindowType | undefined = windows.find(isFocused);
-if (!args.app) {
-  console.error("no focused window");
-  Deno.exit(1);
-}
-if (!focusedWindow) {
+if (!args.app && !focusedWindow) {
   console.error("no focused window");
   Deno.exit(1);
 }
@@ -65,7 +61,7 @@ if (args.app) {
   } else {
     targetWindows = windows.filter((x) => x.app.includes(args.app));
   }
-} else {
+} else if(focusedWindow) {
   targetWindows = windows.filter((x) => x.app === focusedWindow.app);
 }
 debuglog(`targetWindows: ${JSON.stringify(targetWindows.map((w) => w.id))}`);
@@ -80,9 +76,13 @@ debuglog(`ids: ${JSON.stringify(ids)}`);
 
 if (ids.length === 0) {
   console.error("no windows");
-} else {
+} else if(focusedWindow) {
   const currentIndex = ids.indexOf(focusedWindow.id);
   const nextIndex = (currentIndex + (args.f === "prev" ? -1 : 1)) % ids.length;
   debuglog(`currentIndex: ${currentIndex}, nextIndex: ${nextIndex}`);
+  console.log(ids[nextIndex]);
+} else {
+  const nextIndex = 0;
+  debuglog(`currentIndex: not found, nextIndex: ${nextIndex}`);
   console.log(ids[nextIndex]);
 }
