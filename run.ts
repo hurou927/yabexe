@@ -1,4 +1,4 @@
-#!/usr/bin/env -S ${HOME}/.asdf/shims/deno run --allow-all
+#!/usr/bin/env -S deno run --allow-all
 // import { $, Array as A, pipe, yargs } from "./deps.ts";
 import { $ } from "@david/dax";
 import * as A from "fp-ts/ReadonlyArray";
